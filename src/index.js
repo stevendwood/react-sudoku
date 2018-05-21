@@ -32,12 +32,12 @@ class SudukoBoard extends React.Component {
         const rows = grid.rows.map((row, idx) => {
             return (
                 <tr key={"row" + idx}>
-                    {row.map(c => (
-                        <td key={c.row + c.col}>
+                    {row.map(cell => (
+                        <td key={cell.col}>
                             <Square
-                                value={c.value}
-                                row={c.row}
-                                col={c.col}
+                                value={cell.value}
+                                row={cell.row}
+                                col={cell.col}
                                 onCellValueChange={this.props.onCellValueChange}
                             />
                         </td>
