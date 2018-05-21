@@ -25,7 +25,7 @@ onCellValueEdited(row, col, value) {
     this.setState({ puzzle: grid.toFlatString() });
 }
 ```
-Finally, when the user hits solve, solve the puzzle using the grid and solver classes and grab the 81 char string which forms the new state.
+When the user hits solve, solve the puzzle using the grid and solver classes and grab the 81 char string which forms the new state.
 ```js
 solve() {
     const { puzzle } = this.state,
