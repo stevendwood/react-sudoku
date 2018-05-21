@@ -31,7 +31,7 @@ class SudukoBoard extends React.Component {
         const grid = new Grid(this.props.puzzle);
         const rows = grid.rows.map((row, idx) => {
             return (
-                <tr key={"row" + idx}>
+                <tr key={idx}>
                     {row.map(cell => (
                         <td key={cell.col}>
                             <Square
