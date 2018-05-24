@@ -1,6 +1,6 @@
 Learning some React by writing a UI wrapper for the JS version of [sudoku solver](https://github.com/stevendwood/sudoku-solver)
 
-[Run it here](https://codepen.io/stevendwood/pen/meEyyZ)
+[Run it here](https://codepen.io/stevendwood/full/meEyyZ/)
 
 There are 3 components, SudokuGame, SudokuBoard and Square.
 
