@@ -1,8 +1,10 @@
 Learning some React by writing a UI wrapper for the JS version of [sudoku solver](https://github.com/stevendwood/sudoku-solver)
 
+[Run it here](https://codepen.io/stevendwood/full/meEyyZ/)
+
 There are 3 components, SudokuGame, SudokuBoard and Square.
 
-SudukoGame is the parent component and it holds the state.  The state is a string representation of a puzzle e.g.
+SudukoGame is the parent component, it holds the state.  The state is a string representation of a puzzle e.g.
 ```js
 <SudokuGame
    puzzle="4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......"
@@ -16,7 +18,7 @@ When the user edits a cell (in component Square) fire an onChange function provi
     onCellValueChange={this.onCellValueEdited.bind(this)}
 />
 ```
-When a cells value is edited, we want update the correct index in the puzzle string and set the state to the new string triggering a re-render.  Make use of the Grid class for ease...
+When a cells value is edited, we want update the correct index in the puzzle string and set the state to the new string triggering a re-render.
 ```js
 onCellValueEdited(row, col, value) {
     const grid = new Grid(this.state.puzzle);
@@ -25,7 +27,7 @@ onCellValueEdited(row, col, value) {
     this.setState({ puzzle: grid.toFlatString() });
 }
 ```
-When the user hits solve, solve the puzzle using the grid and solver classes and grab the 81 char string which forms the new state.
+When the user presses solve, solve the puzzle using the grid and solver classes and grab the 81 char string, setting it as the new state.
 ```js
 solve() {
     const { puzzle } = this.state,
