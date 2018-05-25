@@ -111,7 +111,7 @@ export default class Solver {
         (cells || this.grid.unsolved()).forEach(cell => {
             let peerValues = this.grid.peers(cell).map(valueOfCell),
                 possibleValues = DIGITS.filter(
-                    d => peerValues.indexOf(d) === -1
+                    d => !peerValues.includes(d)
                 );
             cell.possibleValues = possibleValues;
         });
@@ -194,7 +194,7 @@ export default class Solver {
             //.reduce((a, b) => a.concat(b));
 
             unique = unsolvedCell.possibleValues.filter(
-                x => otherCellsPossValues.indexOf(x) === -1
+                x => !otherCellsPossValues.includes(x)
             );
             if (unique.length === 1) {
                 this._setValueForCell(unsolvedCell, unique[0]);
