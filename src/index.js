@@ -1,11 +1,11 @@
-import React from "react";
+import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Grid from "./grid.js";
 import Solver from "./solver.js";
 
 import "./index.css";
 
-class Square extends React.Component {
+class Square extends Component {
   fireOnChange(evt) {
     const value = evt.target.value;
     if (parseInt(value, 10) || value === "") {
@@ -30,8 +30,8 @@ class Square extends React.Component {
   }
 }
 
-class SudukoBoard extends React.Component {
-  
+class SudukoBoard extends Component {
+
   render() {
     const grid = new Grid(this.props.puzzle);
 
@@ -60,7 +60,7 @@ class SudukoBoard extends React.Component {
   }
 }
 
-class SudokuGame extends React.Component {
+class SudokuGame extends Component {
   constructor(props) {
     super(props);
     this.state = { puzzle: this.props.puzzle };
