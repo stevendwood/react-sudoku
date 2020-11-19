@@ -62,12 +62,11 @@ function SudokuGame({ board }) {
                 onCellValueChange={onCellValueEdited.bind(this)}
             />
             <div className="buttons">
-                <button onClick={() => solve()}>Solve It!</button>
+                <button onClick={solve}>Solve It!</button>
                 <button onClick={() => setPuzzle(new Grid())}>Clear All</button>
             </div>
         </div>
     );
-  
 }
 
 ReactDOM.render(
