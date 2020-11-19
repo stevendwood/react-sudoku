@@ -5,46 +5,40 @@ import Solver from "./solver.js";
 
 import "./index.css";
 
-function Square({value, row, col, onCellValueChange}) {
-    function fireOnChange(evt) {
-        const value = evt.target.value;
-        if (parseInt(value, 10) || value === "") {
-            onCellValueChange(row, col, value);
-        }
-    }
+const Square =({value, row, col, onCellValueChange}) => (
+    <input
+        type="text"
+        value={value === 0 ? "" : value}
+        maxLength="1"
+        onChange={(evt) => {
+            const value = evt.target.value;
+            if (parseInt(value, 10) || value === "") {
+                onCellValueChange(row, col, value);
+            }
+        }}
+    />
+);
 
-    return (
-        <input
-            type="text"
-            value={value === 0 ? "" : value}
-            maxLength="1"
-            onChange={fireOnChange}
-        />
-    );
-};
-
-function SudukoBoard({ puzzleGrid, onCellValueChange }) {
-    return (
-        <table className="sudoku">
-            <tbody>
-            { puzzleGrid.rows.map((row, idx) => (
-                <tr key={idx}>
-                    { row.map(cell => (
-                        <td key={cell.col}>
-                            <Square
-                                value={cell.value}
-                                row={cell.row}
-                                col={cell.col}
-                                onCellValueChange={onCellValueChange}
-                            />
-                        </td>
-                    )) }
-                </tr>
-            )) }
-            </tbody>
-      </table>
-    );
-};
+const SudukoBoard = ({ puzzleGrid, onCellValueChange }) => (
+    <table className="sudoku">
+        <tbody>
+        { puzzleGrid.rows.map((row, idx) => (
+            <tr key={idx}>
+                { row.map(cell => (
+                    <td key={cell.col}>
+                        <Square
+                            value={cell.value}
+                            row={cell.row}
+                            col={cell.col}
+                            onCellValueChange={onCellValueChange}
+                        />
+                    </td>
+                )) }
+            </tr>
+        )) }
+        </tbody>
+    </table>
+);
 
 function SudokuGame({ board }) {
     const [puzzle, setPuzzle] = useState(new Grid(board));
