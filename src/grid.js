@@ -1,14 +1,5 @@
 import Cell from "./cell";
 
-/*
-    [[1, 2, 3], [4, 5, 6]].flatten()
-
-    [1, 2, 3, 4, 5, 6]
-*/
-Array.prototype.flatten = function() {
-    return [].concat.apply([], this);
-};
-
 const EMPTY = (() => {
     let temp = [];
     for (let i = 0; i < 81; i++) {
@@ -149,11 +140,11 @@ export default class Grid {
     }
 
     unsolved() {
-        return this.rows.flatten().filter(c => c.value === 0);
+        return this.rows.flat().filter(c => c.value === 0);
     }
 
     isSolved() {
-        return !this.rows.flatten().some(x => x.value === 0);
+        return !this.rows.flat().some(x => x.value === 0);
     }
 
     peers(cell) {
@@ -178,7 +169,7 @@ export default class Grid {
                 new Set(
                     this.sameColAs(cell)
                         .concat(this.sameRowAs(cell))
-                        .concat(this.sameSubGridAs(cell).flatten())
+                        .concat(this.sameSubGridAs(cell).flat())
                         .filter(x => x !== cell)
                 )
             );
@@ -189,7 +180,7 @@ export default class Grid {
 
     toFlatString() {
         return this.rows
-            .flatten()
+            .flat()
             .map(x => x.toString())
             .join("");
     }

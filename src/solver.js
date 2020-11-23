@@ -73,12 +73,12 @@ export default class Solver {
         if (!this.grid.isSolved()) {
             // If we get here then we're also stuck since we haven't found a solution despite trying
             // all possible values for a cell.
-            throw "Tried all values for this cell  [" +
+            throw new Error("Tried all values for this cell  [" +
                 cell.row +
                 ", " +
                 cell.col +
                 "]" +
-                cell.possibleValues;
+                cell.possibleValues);
         }
     }
 
@@ -131,12 +131,12 @@ export default class Solver {
                 }
 
                 if (p.possibleValues.length === 0) {
-                    throw "No possible values for cell [" +
+                    throw new Error("No possible values for cell [" +
                         p.row +
                         ", " +
                         p.col +
                         "] " +
-                        p.value;
+                        p.value);
                 }
             });
     }
@@ -145,7 +145,7 @@ export default class Solver {
         const peers = this.grid.peers(cell);
 
         if (peers.some(x => x.value === value)) {
-            throw "Tried to set a value that already exists in peers";
+            throw new Error("Tried to set a value that already exists in peers")
         }
 
         cell.value = value;
@@ -168,12 +168,12 @@ export default class Solver {
     _findUniqueValuesInUnits(cell) {
         if (cell) {
             [
-                this.grid.sameSubGridAs(cell).flatten(),
+                this.grid.sameSubGridAs(cell).flat(),
                 this.grid.sameColAs(cell),
                 this.grid.sameRowAs(cell)
             ].forEach(this._findUniquePossibiltyInUnit, this);
         } else {
-            let subGrids = this.grid.subgrids().map(sg => sg.flatten());
+            let subGrids = this.grid.subgrids().map(sg => sg.flat());
 
             for (let units of [subGrids, this.grid.columns(), this.grid.rows]) {
                 for (let unit of units) {
@@ -190,7 +190,7 @@ export default class Solver {
                 otherCellsPossValues = unit
                     .filter(c => c !== unsolvedCell && isUnsolved(c))
                     .map(possibleValuesOfCell)
-                    .flatten();
+                    .flat();
             //.reduce((a, b) => a.concat(b));
 
             unique = unsolvedCell.possibleValues.filter(

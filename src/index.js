@@ -59,7 +59,7 @@ function SudokuGame({ board }) {
             <h1>Sudoku Solver</h1>
             <SudukoBoard
                 puzzleGrid={puzzle}
-                onCellValueChange={onCellValueEdited.bind(this)}
+                onCellValueChange={onCellValueEdited}
             />
             <div className="buttons">
                 <button onClick={solve}>Solve It!</button>

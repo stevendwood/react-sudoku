@@ -4,36 +4,26 @@ Learning some React by writing a UI wrapper for the JS version of [sudoku solver
 
 There are 3 components, SudokuGame, SudokuBoard and Square.
 
-SudukoGame is the parent component, it holds the state.  The state is a string representation of a puzzle e.g.
+SudukoGame is the parent component, it holds the state which is a "Grid", initialised by a string property.
 ```js
 <SudokuGame
-   puzzle="4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......"
+   board="4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......"
 />
 ```
-When the user edits a cell (in component Square) fire an onChange function provided in the props from the SudukoGame.
-```js
-// from SudokuGame.render
-<SudukoBoard
-    puzzle={this.state.puzzle}
-    onCellValueChange={this.onCellValueEdited.bind(this)}
-/>
-```
-When a cells value is edited, we want update the correct index in the puzzle string and set the state to the new string triggering a re-render.
-```js
-onCellValueEdited(row, col, value) {
-    const grid = new Grid(this.state.puzzle);
-    grid.rows[row][col].value = value;
-    // update the state with the new puzzle string
-    this.setState({ puzzle: grid.toFlatString() });
-}
-```
-When the user presses solve, solve the puzzle using the grid and solver classes and grab the 81 char string, setting it as the new state.
-```js
-solve() {
-    const { puzzle } = this.state,
-    grid = new Grid(puzzle);
 
-    new Solver(grid).solve();
-    this.setState({ puzzle: grid.toFlatString() });
+When a cells value is edited, or when the user clicks on solve or clear - the state of the component changes. The function `onCellValueEdited` is passed as a property down to the Square component.
+
+```js
+const [puzzle, setPuzzle] = useState(new Grid(board));
+
+function solve() {
+    new Solver(puzzle).solve();
+    setPuzzle(new Grid(puzzle.toFlatString()));
+}
+
+function onCellValueEdited (row, col, value) {
+    const newGrid = new Grid(puzzle.toFlatString());
+    newGrid.rows[row][col].value = value;
+    setPuzzle(newGrid);
 }
 ```
