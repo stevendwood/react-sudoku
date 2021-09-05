@@ -57,11 +57,11 @@ export default class Solver {
                 let resetPossibilities = [];
                 this._solvedCells
                     .splice(numSolved, this._solvedCells.length - numSolved)
-                    .forEach(cell => {
-                        cell.value = 0;
-                        resetPossibilities.push(cell);
+                    .forEach(cellToReset => {
+                        cellToReset.value = 0;
+                        resetPossibilities.push(cellToReset);
                         resetPossibilities = resetPossibilities.concat(
-                            this.grid.peers(cell)
+                            this.grid.peers(cellToReset)
                         );
                     }, this);
 
