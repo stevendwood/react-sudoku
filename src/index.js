@@ -42,10 +42,17 @@ const SudukoBoard = ({ puzzleGrid, onCellValueChange }) => (
 
 function Sudoku({ puzzleString }) {
     const [puzzle, setPuzzle] = useState(new Grid(puzzleString));
+    const [error, setError] = useState("");
 
     function solve() {
-        new Solver(puzzle).solve();
-        setPuzzle(new Grid(puzzle.toFlatString()));
+        try {
+            new Solver(puzzle).solve();
+            setPuzzle(new Grid(puzzle.toFlatString()));
+            setError("");
+        } catch (e) {
+            console.debug("Couldn't solve the puzzle", e);
+            setError("Couldn't solve it, invalid puzzle");
+        }
     }
 
     function onCellValueEdited (row, col, value) {
@@ -57,6 +64,7 @@ function Sudoku({ puzzleString }) {
     return (
         <div className="game">
             <h1>Sudoku Solver</h1>
+            <p>{error}</p>
             <SudukoBoard
                 puzzleGrid={puzzle}
                 onCellValueChange={onCellValueEdited}

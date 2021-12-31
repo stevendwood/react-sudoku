@@ -1,5 +1,5 @@
 const DIGITS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
+const MAX_SEARCHES = 10000;
 // These are a couple of useful map functions, pulling them up here
 // speeds things up.
 const valueOfCell = cell => cell.value,
@@ -23,9 +23,11 @@ export default class Solver {
         // find any cells that have a possible value that doesn't occur
         // anywhere else in the column, row or subgrid it's in
         this._findUniqueValuesInUnits();
-        if (!this.grid.isSolved()) {
+        if (!this.grid.isSolved() &&  this.guesses < MAX_SEARCHES) {
             // this is a more tricky puzzle, so start searching for a solution.
             this._search();
+        } else {
+            throw new Error("Gave up");
         }
     }
 
@@ -43,10 +45,10 @@ export default class Solver {
             // we need to unwind
             let numSolved = this._solvedCells.length;
             this.guesses += 1;
-
+            
             try {
                 this._setValueForCell(cell, value);
-                if (!this.grid.isSolved()) {
+                if (!this.grid.isSolved() && this.guesses < MAX_SEARCHES) {
                     // no luck, keep looking...
                     this._search();
                 }
